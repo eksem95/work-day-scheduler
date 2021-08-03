@@ -1,13 +1,35 @@
-let hour;
-let currentDate = $("#currentDay");
-let today = moment();
-let currentHour = moment();
+//do everything in military time, loop, start at 9, 
+//compare to current time, assign color, convert to 
+//12-hour, append to page. 
 
-currentDate.text(today.format("dddd, MMMM Do"));
+var currentDayEl = $('#currentDay'); 
+var currentDay = moment().format('dddd, MMMM Do');
 
-//time in military, compare to moment time to produce
-//past present future
-//var reformatDate = moment("11/3/20", "MM-DD-YY").format("dddd, MMMM Do YYYY, h:mm:ss a");
-//$("#3a").text(reformatDate);
+currentDayEl.append(currentDay);
+//timeblocks element
+var container = $('.container');
+ var ampm = "AM";
+  var hour = 9;  
 
-//compare each hour through  nth child?
+for (var i = 0; i<9; i++) {
+ if (hour==12){
+    ampm = "PM";
+  };
+ 
+
+  container.append(
+    `<div class="row">
+  <div class="col hour">
+    ${hour}${ampm}
+  </div>
+  <textarea class="col col-10"></textarea>
+  <div class="col saveBtn"> save
+  </div>
+  </div>`)
+  if (hour==12){
+    hour = 0;
+  }
+  hour++;
+  }
+
+
