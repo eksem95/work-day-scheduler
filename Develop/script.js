@@ -1,21 +1,23 @@
-//do everything in military time, loop, start at 9, 
-//compare to current time, assign color, convert to 
-//12-hour, append to page. 
-
 var currentDayEl = $('#currentDay'); 
 var currentDay = moment().format('dddd, MMMM Do');
-
 currentDayEl.append(currentDay);
+
 //timeblocks element
 var container = $('.container');
- var ampm = "AM";
-  var hour = 9;  
+var ampm = "AM";
+var hour = 9;  
+var textInput = $('<textarea>');
+
+function applyColor() {
+  textInput.addClass("future");//addClass not working
+  //apply color based on moment
+  //compare current to moment().format(H AM/PM)
+};
 
 for (var i = 0; i<9; i++) {
  if (hour==12){
     ampm = "PM";
-  };
- 
+  }; 
 
   container.append(
     `<div class="row">
@@ -28,8 +30,13 @@ for (var i = 0; i<9; i++) {
   </div>`)
   if (hour==12){
     hour = 0;
-  }
+  };
   hour++;
-  }
+  };
+
+  container.each(applyColor());
 
 
+//save button
+//local storage 
+//key, sibling(hour).val())? value textArea.val()
