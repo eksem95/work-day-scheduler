@@ -5,8 +5,10 @@ currentDayEl.append(currentDay);
 
 //timeblocks element
 var container = $('.container');
-var ampm = "AM";
-var hour = 9;
+let ampm = "AM";
+let hour = 9; //for rendering timeblocks
+let timeblock = 9; //for the ID for each row
+let hourID = 9; //the military time for comparing to the current hour
 
 
 //render hour blocks
@@ -14,7 +16,6 @@ for (let i = 0; i < 9; i++) {
   if (hour == 12) {
     ampm = "PM";
   };
-
   container.append(
     `<div class="row" id = "${hour}">
   <div class="col hour">
@@ -24,31 +25,33 @@ for (let i = 0; i < 9; i++) {
   <div class="col saveBtn"> save
   </div>
   </div>`);
-
   if (hour == 12) {
     hour = 0;
   };
-
   hour++;
-
 };
+
 //apply appropriate color
 for (let i = 0; i < 9; i++) {
-  hour = 9;
-  if (hour > 10) {
-    hour = hour + 12;
+  if (hourID == 13) {
+    timeblock = 1
   }
-  if (hour < moment().hour()) {
-    $(`#${hour}`).children("textarea").addclass("past");
+  //console.log(timeblock, moment().hour(), hourID);
+  if (hourID < moment().hour()) {
+    $(`#${timeblock}`).children("textarea").addClass("past");
   }
-  if (hour = moment().hour()) {
-    $(`#${hour}`).children("textarea").addclass("present");
+  else if (hourID == moment().hour()) {
+    $(`#${timeblock}`).children("textarea").addClass("present");
   }
-  if (hour < moment().hour()) {
-    $(`#${hour}`).children("textarea").addclass("future");
+  else if (hourID > moment().hour()) {
+    $(`#${timeblock}`).children("textarea").addClass("future");
   }
-  hour++
+  timeblock++;
+  hourID++;
 };
+
+
+
 
 //save button
 //local storage 
